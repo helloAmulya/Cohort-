@@ -29,11 +29,12 @@ router.post('/signin', async (req, res) => {
     const password = req.body.password;
     console.log(JWT_SECRET);
 
-    const user = await User.find({
+    const user = await Admin.findOne({
         username,
         password
     })
     if (user) {
+        // here i am using the jwt.sign method to create a token and send it back
         const token = sign({
             username
         }, JWT_SECRET);

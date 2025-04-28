@@ -1,5 +1,4 @@
 
-
 import { Router } from "express";
 import userMiddleware from "../middleware/user.js";
 import { Course, User } from "../db/index.js"; // Corrected import

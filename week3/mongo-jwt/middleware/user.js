@@ -1,6 +1,7 @@
 import { JWT_SECRET } from "../config.js";
 import pkg from 'jsonwebtoken';
 const { verify } = pkg;
+
 function userMiddleware(req, res, next) {
     const token = req.headers.authorization;
     const words = token.split(" ");

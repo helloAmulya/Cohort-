@@ -1,6 +1,6 @@
+import { JWT_SECRET } from "../config.js";
 import pkg from 'jsonwebtoken';
 const { verify } = pkg;
-import { JWT_SECRET } from "../config.js";
 
 // Middleware for handling auth
 function adminMiddleware(req, res, next) {
