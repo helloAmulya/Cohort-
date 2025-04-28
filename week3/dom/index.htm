@@ -1,0 +1,72 @@
+<!-- <html>
+
+    
+<script>
+    function addTodo() {
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const butMsg = "Todo Added"
+
+        //   console.log(`todo title ::  ${title}  &  description :: ${description}`);
+
+        const childDiv = document.createElement("div")
+        const tit = document.createElement("div")
+        const desc = document.createElement("div")
+        const butt = document.createElement("button")
+        tit.innerHTML = title
+        desc.innerHTML = description
+        butt.innerHTML = butMsg
+
+        childDiv.append(tit)
+        childDiv.append(desc)
+        childDiv.append(butt)
+        // outerDiv.innerHTMl = title
+        document.getElementById("container").append(childDiv)
+
+
+
+    }
+</script>
+
+<div>
+    <input type="text" id="title" placeholder="Enter Title" />
+    <br />
+    <br />
+    <input type="text" id="description" placeholder="Enter todo" />
+    <br />
+    <br />
+    <button id="todo" onclick="addTodo()">add todo</button>
+    <div id="container"></div>
+</div>
+
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <input type="text" id="title" placeholder="Enter Title" />
+        <br />
+        <br />
+        <input type="text" id="description" placeholder="Enter todo" />
+        <br />
+        <br />
+        <!-- <button id="todos" onclick="addTodo()">add todo</button> -->
+        <div id="container"></div>
+    </div>
+
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>

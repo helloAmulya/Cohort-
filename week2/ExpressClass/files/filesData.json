@@ -1,0 +1,40 @@
+{
+    "dataValue": [
+      {
+        "user": "Amulya",
+        "age": 22,
+        "email": "amulya@example.com",
+        "location": "Ghaziabad",
+        "isActive": true
+      },
+      {
+        "user": "Daddy",
+        "age": 23,
+        "email": "daddy@example.com",
+        "location": "Delhi",
+        "isActive": false
+      },
+      {
+        "user": "John",
+        "age": 20,
+        "email": "john@example.com",
+        "location": "New York",
+        "isActive": true
+      },
+      {
+        "user": "Doe",
+        "age": 19,
+        "email": "doe@example.com",
+        "location": "San Francisco",
+        "isActive": false
+      },
+      {
+        "user": "Random",
+        "age": 23,
+        "email": "random@example.com",
+        "location": "Bangalore",
+        "isActive": true
+      }
+    ]
+  }
+  

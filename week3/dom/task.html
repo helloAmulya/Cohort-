@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        let globalId = 1;
+        let todoState = [];
+        let oldTodoState = [];
+
+        function addTodoToDom(todo) {
+            const container = document.getElementById("todos");
+            const todoElement = document.createElement("div");
+            todoElement.id = todo.id;
+
+            todoElement.innerHTML = `
+        <p>${todo.title}</p>
+        <p>${todo.description}</p>
+        <button>${todo.completed ? "Done" : "Mark as Done"}</button>
+    `;
+
+            container.appendChild(todoElement);
+        }
+
+        function removeTodoFromDom(todo) {
+            const getTodo = document.getElementById(todo.id);
+            // getTodo.parent.removeChild(getTodo);
+            getTodo.parentNode.removeChild(getTodo)
+
+
+        }
+
+        function updateTodoInDom(oldTodo, newTodo) {
+            const getTodo = document.getElementById(oldTodo.id)
+            getTodo.children[0].innerHTML = newTodo.title;
+            getTodo.children[1].innerHTML = newTodo.description;
+            getTodo.children[2].innerHTML = newTodo.completed? "Mark as Done" : "Done";
+
+        }
+
+        // function updateState(newTodos) {
+        //     // calculate the diff b/w newTodos and oldTodos.
+        //     // More specifically, find out what todos are - 
+        //     // 1. added
+        //     // 2. deleted
+        //     // 3. updated
+        //     const added = [];
+        //     const deleted = [];
+        //     const updated = [];
+
+        //     const oldMap = new Map()
+        //     const newMap = new Map()
+
+
+        //     // calculate these 3 arrays
+        //     // call addTodo, removeTodo, updateTodo functions on each of the
+        //     // elements
+        //     oldTodoState = newTodos;
+
+        //     oldTodoState.forEach(todo => oldMap.set(todo.id, todo));
+        //     newTodos.forEach(todo => newMap.set(todo.id, todo));
+
+        //     // Check for added or updated
+        //     newTodos.forEach(newTodo => {
+        //         if (!oldMap.has(newTodo.id)) {
+        //             added.push(newTodo);
+        //         } else {
+        //             const oldTodo = oldMap.get(newTodo.id);
+        //             if (
+        //                 oldTodo.title !== newTodo.title ||
+        //                 oldTodo.description !== newTodo.description ||
+        //                 oldTodo.completed !== newTodo.completed
+        //             ) {
+        //                 updated.push({ oldTodo, newTodo });
+        //             }
+        //         }
+        //     });
+
+        //     // Check for deleted
+        //     oldTodoState.forEach(oldTodo => {
+        //         if (!newMap.has(oldTodo.id)) {
+        //             deleted.push(oldTodo);
+        //         }
+        //     });
+
+        //     // Update the DOM
+        //     added.forEach(addTodoToDom);
+        //     deleted.forEach(removeTodoFromDom);
+        //     updated.forEach(({ oldTodo, newTodo }) => updateTodoInDom(oldTodo, newTodo));
+
+        //     // Update state reference
+        //     oldTodoState = [...newTodos];
+        // }
+
+        function updateState(newTodos) {
+            const added = [];
+            const deleted = [];
+            const updated = [];
+
+            const oldMap = new Map();
+            const newMap = new Map();
+
+            // create oldMap BEFORE overwriting oldTodoState
+            oldTodoState.forEach(todo => oldMap.set(todo.id, todo));
+            newTodos.forEach(todo => newMap.set(todo.id, todo));
+
+            newTodos.forEach(newTodo => {
+                if (!oldMap.has(newTodo.id)) {
+                    added.push(newTodo);
+                } else {
+                    const oldTodo = oldMap.get(newTodo.id);
+                    if (
+                        oldTodo.title !== newTodo.title ||
+                        oldTodo.description !== newTodo.description ||
+                        oldTodo.completed !== newTodo.completed
+                    ) {
+                        updated.push({ oldTodo, newTodo });
+                    }
+                }
+            });
+
+            oldTodoState.forEach(oldTodo => {
+                if (!newMap.has(oldTodo.id)) {
+                    deleted.push(oldTodo);
+                }
+            });
+
+            // Update DOM
+            added.forEach(addTodoToDom);
+            deleted.forEach(removeTodoFromDom);
+            updated.forEach(({ oldTodo, newTodo }) => updateTodoInDom(oldTodo, newTodo));
+
+            // Finally update oldTodoState
+            oldTodoState = [...newTodos];
+        }
+
+        async function getAll() {
+            const res = await fetch("http://localhost:3000/todos");
+            const json = await res.json();
+            todoState = json.todos;
+            updateState(todoState);
+        }
+
+
+        function addTodo() {
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            todoState.push({
+                title: title,
+                description: description,
+                id: globalId++,
+            })
+            updateState(todoState);
+        }
+    </script>
+</head>
+
+<body onload="getAll()">
+
+    <input type="text" id="title" placeholder="Todo title"></input> <br /><br />
+    <input type="text" id="description" placeholder="Todo description"></input> <br /><br />
+    <button onclick="addTodo()">Add todo</button>
+    <br /> <br />
+
+    <div id="todos">
+
+    </div>
+</body>
+
+</html>
