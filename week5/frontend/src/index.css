@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+body {
+    @apply bg-black/90 text-white; /* or use bg-stone-800 for a brown tone */
+  }
