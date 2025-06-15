@@ -39,13 +39,16 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
+import pkg from 'body-parser';
+const { json } = pkg;
 const port = 3000;
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(json());
+
+// todo storage 
 let todos = [];
 
 app.get('/todos', (req, res) => {
@@ -57,9 +60,9 @@ app.get('/todos/:id', (req, res) => {
 
   if (!todo) {
     res.status(404).send();
-  } 
+  }
   else {
-    res.json(todo);
+    res.json({todo,msg: "fetched"});
   }
 });
 
@@ -74,18 +77,21 @@ app.post('/todos', (req, res) => {
   res.status(201).json(newTodo)
 });
 
-app.put('/todos/:id', (req, res) => {
-  const todoIndex = todos.findIndex(todo => todo.id === parseInt(req.params.id))
 
-  if (todoIndex === -1) {
-    res.status(404).send();
+
+app.put('todos/:id',(req,res)=>{
+  const todoIndex = todos.find(todo=> todo.id === parseInt(req.params.id))
+
+  if(todoIndex == -1){
+    res.status(404).send()
   }
-  else {
-    todos[todoIndex].title = req.body.title;
-    todos[todoIndex].description = req.body.description;
-    res.json(todos[todoIndex]);
+  else{
+    todos[todoIndex].title = req.body.title
+    todos[todoIndex].description = req.body.description
+    res.json(todos[todoIndex])
+
   }
-});
+})
 
 
 app.delete('/todos/:id', (req, res) => {
@@ -110,4 +116,4 @@ app.listen(port, () => {
   console.log(`Server running at ${port}`)
 })
 
-module.exports = app;
+export default app;
