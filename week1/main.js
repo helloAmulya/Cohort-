@@ -9,7 +9,7 @@ const objr = [
     },
     {
         name: "kratos",
-        gender: "male"
+        gender: "male"  
     },
 
 ]

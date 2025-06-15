@@ -20,12 +20,18 @@
 // const value = calculateAr(5, 10, "sum")
 
 
+
+/*  Callback function or  higher-order functions in JavaScript. */
+
+
+
+
 function greet() {
     console.log('hello ')
 }
-setTimeout(greet, 2000);
+// setTimeout(greet, 2000);
 
-setInterval(greet, 1000) // this will keep executing the function after every 1 second (kind of inifinite loop)
+// setInterval(greet, 1000) // this will keep executing the function after every 1 second (kind of inifinite loop)
 
 function calcAt(a, b, atf) {
     const ans = atf(a, b);
@@ -40,7 +46,5 @@ function sub(a, b) {
     return a - b;
 }
 
-const value = calcAt(10, 5, sum);
+const value = calcAt(10, 17, sub);
 console.log(value)
-
-display

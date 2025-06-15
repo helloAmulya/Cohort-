@@ -38,7 +38,6 @@
 //         totalSpent: categoryMap[category]
 //     }));
 
-
 //     // return ["category : " + transactions.category, "totalSpent : " + transactions.price];
 //     // or
 //     // return Object.entries(categoryMap).map(([category, totalSpent]) => ({ category, totalSpent }));
@@ -59,19 +58,19 @@
 
 /* 3. findLargestElement  */
 
-// function findLargestElement(arr) {
-//     if (arr.length === 0) {
-//         // === (triple equals) compares values and types.
-//         return -1;
-//     }
-//     return Math.max(...arr)
-//     // doing (...arr) spreads the array as individual number and then checks it
+function findLargestElement(arr) {
+    if (arr.length === 0) {
+        // === (triple equals) compares values and types.
+        return -1;
+    }
+    return Math.max(...arr)
+    // doing (...arr) spreads the array as individual number and then checks it
 
-//     // we simply not do sorting and return the last element because -> Sorting is O(n log n), while Math.max() is O(n). 
-// }
+    // we simply not do sorting and return the last element because -> Sorting is O(n log n), while Math.max() is O(n). 
+}
 
-// const arr = [3, 7, 2, 9, 1]
-// console.log("largest element in", arr, "->", findLargestElement(arr))
+const arr = [3, 7, -5, -10, 234, 65512.3424, 0, 2];
+console.log("largest element in", arr, "->", findLargestElement(arr))
 
 
 /* 4. Vowel finding  */
@@ -117,19 +116,19 @@
 // or
 // O(1) time complexity
 
-function calculateTime(n) {
-    let startTime = new Date().getTime();
+// function calculateTime(n) {
+//     let startTime = new Date().getTime();
 
-    let sum = (n * (n + 1)) / 2;
+//     let sum = (n * (n + 1)) / 2;
 
-    let endTime = new Date().getTime();
+//     let endTime = new Date().getTime();
 
-    return (endTime - startTime) / 1000;
-}
+//     return (endTime - startTime) / 1000;
+// }
 
 
-// Test the function
-console.log("Time taken for sum 1-100:", calculateTime(100), "seconds");
-console.log("Time taken for sum 1-100000:", calculateTime(100000), "seconds");
-console.log("Time taken for sum 1-1000000000:", calculateTime(1000000000), "seconds");
+// // Test the function
+// console.log("Time taken for sum 1-100:", calculateTime(100), "seconds");
+// console.log("Time taken for sum 1-100000:", calculateTime(100000), "seconds");
+// console.log("Time taken for sum 1-1000000000:", calculateTime(1000000000), "seconds");
 

@@ -11,11 +11,9 @@
 */
 
 class Todo {
-
     constructor() {
         this.todos = [];
     }
-
     add(todo) {
         this.todos.push(todo);
     }
@@ -31,37 +29,37 @@ class Todo {
     }
 
     update(index, updatedTodo) {
-        if (index >= 0 && this.todos.length) {
+        if (this.todos.length && index >= 0) {
             this.todos[index] = updatedTodo;
         }
         else {
             throw new Error("Invalid index");
         }
     }
-
-
-    getAll() {
-        return this.todos;
-    }
-
     get(index) {
-        if (index >= 0 && this.todos.length) {
+        if (this.todos.length && index >= 0) {
             return this.todos[index];
         }
+
         else {
-            throw new Error("Invalid Index")
+            throw new Error("Invalid index");
         }
+    }
+    getAll() {
+        return this.todos;
     }
 
     clear() {
         this.todos = []
     }
+
 }
 
 const task = new Todo();
-task.add("JavaScript Revision ")
-task.add("Develop a page ")
-task.add("Post on twitter  ")
+task.add("JavaScript Revision")
+task.add("Develop a landing page")
+task.add("Docker Basics")
+task.add("Post on twitter")
 task.add("Gym")
 
 
@@ -75,4 +73,8 @@ task.clear();
 // console.log("Now all the todos are cleared ")
 console.log(task.getAll());
 
-module.exports = Todo;
+export default Todo;
+
+
+
+
