@@ -13,10 +13,33 @@ Example: GET http://localhost:3000/files
 - For any other route not defined in the server return 404
 Testing the server - run `npm run test-fileServer` command in terminal
 */
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import { readdir, readFile } from 'fs';
+import { join } from 'path';
 const app = express();
 
+app.get('/files', function (req, res) {
+    readdir(join(__dirname, './files/'), (err, files) => {
+    if (err) {
+        return res.status(500).json({ error: 'Failed to retrieve files' });
+    }
+    res.json(files);
+    });
+});
 
-module.exports = app;
+app.get('/file/:filename', function (req, res) {
+    const filepath = join(__dirname, './files/', req.params.filename);
+
+    readFile(filepath, 'utf8', (err, data) => {
+    if (err) {
+        return res.status(404).send('File not found');
+    }
+    res.send(data);
+    });
+});
+
+app.all('*', (req, res) => {
+    res.status(404).send('Route not found');
+});
+
+export default app;
