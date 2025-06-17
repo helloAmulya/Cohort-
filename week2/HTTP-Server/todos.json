@@ -1,12 +1,17 @@
 [
-    {
-        "id": 157999,
-        "title": "Buy cohort",
-        "description": "I should buy cohort"
-    },
-    {
-        "id": 146230,
-        "title": "backend devx",
-        "description": "backend is straightForward"
-    }
+  {
+    "id": 157999,
+    "title": "Buy cohort",
+    "description": "I should buy cohort"
+  },
+  {
+    "id": 146230,
+    "title": "backend devx",
+    "description": "backend is straightForward"
+  },
+  {
+    "id": 649487,
+    "title": "updating post 1 as,  put todo 1",
+    "description": "todo post 1 updated as put 1"
+  }
 ]
