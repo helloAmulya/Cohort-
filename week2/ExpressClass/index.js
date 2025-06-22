@@ -30,6 +30,9 @@
 //     console.log(`Server is running on port http://localhost:${port}`)
 // ])
 
+
+
+
 import express from 'express'
 const app = express();
 
@@ -40,15 +43,19 @@ const users = [{
     name: "Amulya",
     kidney: [{
         healthy: true,
+        structure: 'adaptive',
     }],
-    // name: "John",
-    // kidney: [{
-    //     healthy: false,
-    // }],
-    // name: "Doe",
-    // kidney: [{
-    //     healthy: true,
-    // }]
+    name: "John",
+    kidney: [{
+        healthy: false,
+        structure: 'adaptive',
+
+    }],
+    name: "Doe",
+    kidney: [{
+        healthy: true,
+        structure: 'stagnant',
+    }]
 
 }]
 
@@ -58,18 +65,33 @@ app.get('/', function (req, res) {
     const userkidney = users[0].kidney;
     const TotalKidney = userkidney.length;
     let healythKidneys = 0;
+    let structKid = 0;
+    let unstructuredKidney = 0
+
     for (let i = 0; i < userkidney.length; i++) {
         if (userkidney[i].healthy) {
             healythKidneys = healythKidneys + 1;
+
+            if(userkidney[i].structure == 'adaptive') {
+                structKid = structKid + 1
+            }
+            else {
+                unstructuredKidney = unstructuredKidney + 1;
+            }
         }
     }
+
+
     const unhealtykidneys = TotalKidney - healythKidneys;
 
-    res.json({
-        TotalKidney,
-        healythKidneys,
-        unhealtykidneys,
-    })
+res.json({
+    TotalKidney,
+    healythKidneys,
+    unhealtykidneys,
+    structKid,
+    unstructuredKidney,
+
+})
 
 })
 
@@ -118,7 +140,6 @@ app.delete('/', function (req, res) {
     }
     else {
         res.status(400).json({
-
             msg: "are u moron, all kidneys deleted",
         })
     }

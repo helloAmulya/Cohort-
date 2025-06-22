@@ -146,7 +146,7 @@ function App() {
     <div>
       {/* <MemoR /> */}
       {/* <TodosApp /> */}
-      {/* <CodeIssue/> */}
+      <CodeIssue/>
       {/* <MemCal/> */}
     </div>
   );
