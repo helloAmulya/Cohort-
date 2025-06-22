@@ -16,8 +16,8 @@ Testing the server - run `npm run test-fileServer` command in terminal
 // import express from 'express';
 // import { readdir, readFile } from 'fs';
 
-const express = require('express');
-const { readdir, readFile } = require('fs');
+import express from 'express';
+import { readdir, readFile } from 'fs';
 
 const app = express();
 const PORT = 3000;
@@ -68,10 +68,10 @@ app.use((req, res) => {
     res.status(404).send('Route not found');
 });
 
-if (require.main === module) {
+
     app.listen(PORT, () => {
         console.log(`Server is running at http://localhost:${PORT}`);
     });
-}
 
-module.exports = app;
+
+export default app;
