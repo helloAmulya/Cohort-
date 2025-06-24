@@ -39,7 +39,7 @@ const app = express();
 
 let numberOfrequests = 0;
 function calcReq(req, res, next) {
-    /*  rate-limiting */
+    //  rate-limiting 
     numberOfrequests++;
     console.log(`Request #${numberOfrequests}`);
     next();
