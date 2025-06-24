@@ -29,19 +29,19 @@ router.post('/signin', async (req, res) => {
     // Implement user signin logic
     const username = req.body.username;
     const password = req.body.password;
-    console.log(JWT_SECRET);
+    // console.log(JWT_SECRET);
 
     try {
-        const user = await User.findOne({  // Changed to findOne
-            username: username, // Added username
+        const user = await User.findOne({  
+            username: username, 
             password: password,
         });
 
         if (user) {
-            const token = jwt.sign({ username: username }, JWT_SECRET); // Corrected username
-            res.json({ token: token }); // Corrected token
+            const token = jwt.sign({ username: username }, JWT_SECRET); 
+            res.json({ token: token }); 
         } else {
-            res.status(401).json({ message: "Incorrect username and password" }); // Corrected status code
+            res.status(401).json({ message: "Incorrect username or password" }); 
         }
     } catch (error) {
         console.error("Error during signin:", error);
@@ -50,9 +50,9 @@ router.post('/signin', async (req, res) => {
 });
 
 router.get('/courses', async (req, res) => {
-    // Implement listing all courses logic
+    // implement listing all courses logic
     try {
-        const courses = await Course.find({}); //Simplified
+        const courses = await Course.find({}); 
         res.json({ courses: courses });
 
     } catch (error) {
@@ -65,14 +65,14 @@ router.get('/courses', async (req, res) => {
 router.post('/courses/:courseId', userMiddleware, async (req, res) => {
     // Implement course purchase logic
     const courseId = req.params.courseId;
-    const username = req.username; // Get username from middleware
-    // console.log(username);
+    const username = req.username; 
+
 
     try {
-        const user = await User.findOneAndUpdate( //Use findOneAndUpdate
+        const user = await User.findOneAndUpdate( 
             { username: username },
             { $push: { purchasedCourses: courseId } },
-            { new: true } // Return the updated document
+            { new: true } // return updated document
         );
 
         if (!user) {
@@ -88,10 +88,10 @@ router.post('/courses/:courseId', userMiddleware, async (req, res) => {
 
 router.get('/purchasedCourses', userMiddleware, async (req, res) => {
     // Implement fetching purchased courses logic
-    const username = req.username; // Get username from middleware
+    const username = req.username; 
 
     try {
-        const user = await User.findOne({ username: username }).populate('purchasedCourses'); // Efficient
+        const user = await User.findOne({ username: username }).populate('purchasedCourses'); 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
