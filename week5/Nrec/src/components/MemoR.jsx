@@ -10,7 +10,7 @@ function MemoR() {
   return (
     <div>
       <ButtonComponent inputFunction={inputFunction} />
-      <button onClick={() => setCount(count + 1)}>Clickc me {count}</button>
+      <button onClick={() => setCount(count + 1)}>Click me {count}</button>
     </div>
   );
 }

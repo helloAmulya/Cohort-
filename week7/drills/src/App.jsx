@@ -42,7 +42,7 @@ function AppBar() {
         // }}
         onClick={() => navigate("/dashboard")}
       >
-        but Dashboard
+        btn Dashboard
       </button>
       <button
         // onClick={() => {
@@ -50,7 +50,7 @@ function AppBar() {
         // }}
         onClick={() => navigate("/")}
       >
-        but Landing page
+        btn Landing page
       </button>
 
       <Routes>
