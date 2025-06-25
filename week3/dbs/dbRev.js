@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '../../.env' });
+
+
 import express from 'express'
 // import jwt from 'jsonwebtoken'
 import bcrypt, { hash } from 'bcrypt'
@@ -10,7 +14,12 @@ const PORT = 3002
 const app = express()
 app.use(express.json())
 
-mongoose.connect('mongodb+srv://daddyAmulya:daddyAmulya@cluster0.gldtjmy.mongodb.net/dbRev_app');
+// connecting with mongoDB
+mongoose.connect( `${process.env.MONGO_URI}${process.env.MONGO_DB_REV}`)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error(" MongoDB connection error:", err));
+
+
 
 // defininng the schema with zod 
 const userSchema = z.object({

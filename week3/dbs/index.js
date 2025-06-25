@@ -1,10 +1,18 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '../../.env' });
+
 import express from "express"
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
 const jwtPassword = "1234"
 
+
 // connecting with mongoDB
-mongoose.connect('mongodb+srv://daddyAmulya:daddyAmulya@cluster0.gldtjmy.mongodb.net/user_app');
+mongoose.connect(`${process.env.MONGO_URI}${process.env.MONGO_DB_USER}`)
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.error(" MongoDB connection error:", err));
+
+
 
 const port = 3000
 const app = express()

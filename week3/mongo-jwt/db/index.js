@@ -1,8 +1,13 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '../../.env' });
 
 import { connect, Schema, model } from 'mongoose';
 
-// Connect to MongoDB
-connect('mongodb+srv://daddyAmulya:daddyAmulya@cluster0.gldtjmy.mongodb.net/auth_app');
+// connecting with mongoDB
+mongoose.connect( `${process.env.MONGO_URI}${process.env.MONGO_DB_AUTH}`)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error(" MongoDB connection error:", err));
+
 
 // Define schemas
 const AdminSchema = new Schema({
