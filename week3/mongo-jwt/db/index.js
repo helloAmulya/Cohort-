@@ -4,7 +4,7 @@ dotenv.config({ path: '../../.env' });
 import { connect, Schema, model } from 'mongoose';
 
 // connecting with mongoDB
-mongoose.connect( `${process.env.MONGO_URI}${process.env.MONGO_DB_AUTH}`)
+mongoose.connect( `${process.env.MONGO_URI}${process.env.MONGO_DB_COURSE}`)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error(" MongoDB connection error:", err));
 
