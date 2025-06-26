@@ -1,18 +1,13 @@
-import express from "express";
-import cors from 'cors'
-import bodyParser from "body-parser";
-import jwt from 'jsonwebtoken'
-
-app.use(cors())
-
-app.use(express.json());
-
-const mainRouter = require('./routes/index');
+// backend/index.js
+import express, { json } from 'express';
+import cors from "cors";
+import rootRouter from "./routes/index";
 
 const app = express();
 
-app.use('/api/v1', mainRouter)
+app.use(cors());
+app.use(json());
 
+app.use("/api/v1", rootRouter);
 
-
-app.listen(3000)
+app.listen(3000);
