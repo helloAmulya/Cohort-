@@ -1,9 +1,9 @@
 import express from 'express';
-import { authMiddleware } from '../middleware';
-import { Account } from '../db';
+import { authMiddleware } from '../middleware/auth.js';
+import {Account} from '../db.js'
 import { default as mongoose } from 'mongoose';
 
 const router = express.Router();
 
 
-module.exports = router;
+export default router

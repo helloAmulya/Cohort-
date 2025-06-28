@@ -1,7 +1,31 @@
-// backend/db.js
-import { connect, Schema, model } from 'mongoose';
 
-connect("mongodb://localhost:27017/paytm")
+import dotenv from 'dotenv';
+
+// dotenv.config();
+// always check for this path , this will be the issue if the env is global (for any case) 
+dotenv.config({ path: '../.env' });
+
+
+
+import mongoose, { Schema, model } from 'mongoose';
+
+
+
+// connect("mongodb://localhost:27017/paytm")
+
+const mongoURI = `${process.env.MONGO_URI}${process.env.MONGO_DB_PAYTM}`;
+
+// mongoose.connect(`${process.env.MONGO_URI}${process.env.MONGO_DB_PAYTM}`)
+//     .then(() => console.log("Connected to MongoDB"))
+//     .catch((err) => console.error(" MongoDB connection error:", err));
+
+
+mongoose.connect(mongoURI)
+  .then(() => console.log(" MongoDB connected"))
+  .catch((err) => {
+    console.error(" DB connection failed:", err);
+    process.exit(1); 
+  });
 
 const userSchema = new Schema({
     username: {
@@ -34,8 +58,8 @@ const userSchema = new Schema({
 
 const accountSchema = new Schema({
     userId: {
-        type: Schema.Types.ObjectId, // Reference to User model
-        ref: 'User',
+        type: Schema.Types.ObjectId,
+        ref: 'User',    // Reference to User model
         required: true
     },
     balance: {
@@ -44,10 +68,10 @@ const accountSchema = new Schema({
     }
 });
 
-const Account = model('Account', accountSchema);
-const User = model('User', userSchema);
+export const User = model('User', userSchema);
+export const Account = model('Account', accountSchema);
 
-export default {
-	User,
-    Account
-};
+// export default {
+//     User,
+//     Account
+// };

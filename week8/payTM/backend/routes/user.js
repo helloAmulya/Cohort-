@@ -1,11 +1,15 @@
 import express from "express";
 import { z } from 'zod'
-import { User, Account } from "../db"
+import { User, Account } from "../db.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt";
-import authMiddleware from "../middleware/auth";
 
-import JWT_SECRET from "../config";
+import authMiddleware from '../middleware/auth.js';
+
+
+
+import JWT_SECRET from "../config/jwtConfig.js";
+
 const router = express.Router();
 
 const signupSchema = z.object({
@@ -69,4 +73,4 @@ router.get('/signin', authMiddleware, async (req, res) => {
 });
 
 
-module.exports = router;
+export default router ;

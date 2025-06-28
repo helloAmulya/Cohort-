@@ -1,13 +1,11 @@
 import jwt from 'jsonwebtoken';
-import JWT_SECRET from '../config.js';
+import JWT_SECRET from '../config/jwtConfig.js';
 
-const authMiddleware = (req, res, next) => {
+export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(403).json({
-      msg: "Token missing or invalid",
-    });
+    return res.status(403).json({ msg: "Token missing or invalid" });
   }
 
   const token = authHeader.split(' ')[1];
@@ -17,9 +15,7 @@ const authMiddleware = (req, res, next) => {
     req.userId = verifiedToken.userId;
     next();
   } catch (error) {
-    return res.status(403).json({
-      msg: "Invalid or expired token",
-    });
+    return res.status(403).json({ msg: "Invalid or expired token" });
   }
 };
 
