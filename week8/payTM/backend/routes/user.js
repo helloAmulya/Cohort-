@@ -62,29 +62,7 @@ router.post("/signup", async (req, res) => {
 
 router.get('/signin', authMiddleware, async (req, res) => {
 
-    // const result = userSchema.safeParse(req.body)
-    // if(!result.success){
-    //     return res.status(400).json(result.error.errors)
-    // }
-
-    // const {username, password} = result.data
-
-    //     const validUser = await User.findOne({
-    //         username,
-    //         password
-    //     })
-
-    //     if(validUser){
-    //         res.status(200).json({
-    //             msg: "user Signedin Successfully"
-    //         })
-    //     } else {
-
-    //         res.status(404).json({
-    //             msg: "wrong inputs"
-    //         })
-    //     }
-
+  
     res.json({
         msg: 'successfully signed in',
     });
