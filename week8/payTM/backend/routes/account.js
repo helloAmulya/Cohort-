@@ -3,7 +3,12 @@
 import express from 'express';
 import authMiddleware from '../middleware/auth.js';
 import { Account } from '../db.js';
+import mongoose from 'mongoose';
 
+
+const app = express()
+
+app.use(express.json())
 const router = express.Router();
 
 
@@ -50,19 +55,14 @@ router.get("/balance", authMiddleware, async (req, res) => {
 
 router.post('/transfer', authMiddleware, async (req, res) => {
   const session = await mongoose.startSession();
-
   try {
     session.startTransaction();
-
     const { amount, to } = req.body;
 
-    // check the amount 
-    if (typeof amount !== 'number' || amount <= 0) {
+    if (typeof amount !== 'number' || amount <= 0) { // check the amount 
       return res.status(400).json({ message: "Invalid amount" });
     }
-
-    // no self transfer
-    if (req.userId === to) {
+    if (req.userId === to) { // no self transfer
       return res.status(400).json({ message: "Cannot transfer to self" });
     }
 
@@ -72,21 +72,17 @@ router.post('/transfer', authMiddleware, async (req, res) => {
       await session.abortTransaction();
       return res.status(400).json({ message: "Insufficient balance" });
     }
-
     const receiver = await Account.findOne({ userId: to }).session(session);
     if (!receiver) {
       await session.abortTransaction();
       return res.status(404).json({ message: "Receiver not found" });
     }
 
-
     await Account.updateOne({ userId: req.userId }, { $inc: { balance: -amount } }).session(session);
     await Account.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
-
     await session.commitTransaction();
 
     res.status(200).json({ message: "Transfer successful" });
-
   } catch (error) {
     await session.abortTransaction();
     console.error("Transfer failed:", error);
