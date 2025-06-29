@@ -5,19 +5,29 @@ import dotenv from 'dotenv';
 // always check for this path , this will be the issue if the env is global (for any case) 
 dotenv.config({ path: '../.env' });
 
+/*
+     - setup the database schema for the user-data and account-data, 
+     - used dynamic mongodb connection using the environment variables (good practice)
+     - imp -> keep in mind when importing the variables from the env about the env location/path like: dotenv.config({ path: '../.env' });
+     - in the schema predefine the structure of data like:  username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+        minLength: 3,
+        maxLength: 30
+    }
+        - this way it will be more secure and later use zod for more schema validation
+        - export the schemas separately if causes any issue in importing 
 
+*/
 
 import mongoose, { Schema, model } from 'mongoose';
 
 
-
-// connect("mongodb://localhost:27017/paytm")
-
 const mongoURI = `${process.env.MONGO_URI}${process.env.MONGO_DB_PAYTM}`;
 
-// mongoose.connect(`${process.env.MONGO_URI}${process.env.MONGO_DB_PAYTM}`)
-//     .then(() => console.log("Connected to MongoDB"))
-//     .catch((err) => console.error(" MongoDB connection error:", err));
 
 
 mongoose.connect(mongoURI)
@@ -59,7 +69,7 @@ const userSchema = new Schema({
 const accountSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',    // Reference to User model
+        ref: 'User',    // Reference to User model, so that we can have which user has what balance 
         required: true
     },
     balance: {

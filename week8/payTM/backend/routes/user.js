@@ -6,10 +6,53 @@ import bcrypt from "bcrypt";
 
 import authMiddleware from '../middleware/auth.js';
 
-
 import JWT_SECRET from "../config/jwtConfig.js";
 
 const router = express.Router();
+
+/*
+    Docs: (u can update this if u want)
+
+    1. the user.js handles the user data and its routes
+    - user creation, authentication, updation etc
+
+    2. there are different schemas to facilitate flow of data , we use zod for validation of these
+    
+    3. for any route (taking signup as example), we pass the data in the body, safeParse that (because of zod),
+    - then we destructure the data ->  const {email,password, username , etc...} = result.data -> this is done to obtain each data
+    - we check for the user/data that if it is already present or not
+    - if not we create, before that we hash the password using the bcrypt and add salt  to it for difference in hashing when we store similar pass/data
+    - we then create the user , and we pass the hashed password instead the old/original password 
+    - assign a id to the created user ( ._id  in case of mongodb)
+    - side by side the account is also created to store the balance of the user passing the same userId assigned at the time of user creation 
+    
+    4. now generate a jwt token with the JWT_SECRET (a hardcoded secure password), which can be used to verification 
+    
+    5. do same for signin, pass the username/email in the body (we used to signup)
+    - look for user, if found proceed. 
+    - now for verification, we use bcrypt compare, we hash the given pass with the same salt and the rules that we used in the signup
+    - this doesnot mean -> bcrypt.hash(password-we-gave-now) = storedPassword
+    - this means password-we-gave-now will be hashed with the same salt and rules previously used then compare -> (new-hashed-pass) = storedPass
+    - jwt verify with the userId, JWT_SECRET, and give token. 
+    - these tokens can be stored (localStorage) to accesss protected routes
+
+    6. update is simple, new schema, get data, match based on passed userId
+    - update using ->  await User.updateOne(
+        { _id: req.userId },
+        { $set: result.data }
+    );
+
+
+    7. now if we want to find users based on their username or else, can be an admin task 
+    - this is where we will take in account for the stored jwt tokens and the authMiddleware
+    -  $or: [
+            { firstName: { "$regex": filter, $options: 'i' } },
+            { lastName: { "$regex": filter, $options: 'i' } }
+        ]
+            this to find (a type of filtering ,based on query passed in the url
+            example : http://localhost:3000/api/v1/user/bulk?filter=ra    | this will search for all username having r & a
+*/
+
 
 const signupSchema = z.object({
     username: z.string().email(), // this is email as username
@@ -161,11 +204,11 @@ router.get('/bulk', authMiddleware, async (req, res) => {
         ]
     });
 
-      //  Finds users where firstName or lastName matches the search term using a regular expression.
+    //  Finds users where firstName or lastName matches the search term using a regular expression.
     // If filter = "an" → It matches Ankur, Sanjay, Anita, Karan
 
 
-     const userData = users.map(user => ({
+    const userData = users.map(user => ({
         username: user.username,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -173,7 +216,7 @@ router.get('/bulk', authMiddleware, async (req, res) => {
     }));
 
     res.json({
-         total: userData.length,
+        total: userData.length,
         user: userData
     });
 });
