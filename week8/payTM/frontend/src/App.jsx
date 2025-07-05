@@ -1,25 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Signup from './pages/Signup.jsx';
-import Signin from './pages/Signin.jsx';
-import Dashboard from './pages/Dashboard.jsx';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from "./pages/Dashboard.jsx";
+import Signin from "./pages/Signin.jsx";
+import Signup from "./pages/Signup.jsx";
 
-function App (){
-  const token = localStorage.getItem('token');
-
+function App() {
   return (
     <Routes>
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/signin" element={<Signin />} />
-      <Route
-        path="/dashboard"
-        element={token ? <Dashboard /> : <Navigate to="/signin" />}
-      />
-      <Route path="*" element={<Navigate to="/signin" />} />
+      <Route path="/signup" element={<Signup />} />
     </Routes>
   );
-};
+}
 
 export default App;
