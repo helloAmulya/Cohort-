@@ -114,7 +114,13 @@ router.post("/signup", async (req, res) => {
     }, JWT_SECRET)
     res.json({
         message: "User created Successfully",
-        token: token
+        token: token,user: {
+    firstName: newUser.firstName,
+    lastName: newUser.lastName,
+    username: newUser.username,
+    _id: newUser._id
+  }
+        
     })
 
 })
@@ -159,6 +165,11 @@ router.post('/signin', async (req, res) => {
     return res.status(200).json({
         message: "Successfully signed in",
         token,
+        user: {
+            firstName: userExists.firstName,
+            lastName: userExists.lastName,
+            _id: userExists._id
+        }
     });
 });
 
@@ -192,6 +203,39 @@ router.put('/update', authMiddleware, async (req, res) => {
 });
 
 
+
+// router.get("/alluser", authMiddleware, async (req, res) => {
+//     try {
+//         const users = await User.find({}, "firstName lastName").limit(5);
+//         res.json({
+//             total: users.length,
+//             user: users.map(u => ({
+//                 firstName: u.firstName,
+//                 lastName: u.lastName
+//             }))
+//         });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Server error while fetching users" });
+//     }
+// });
+
+router.get("/alluser", authMiddleware, async (req, res) => {
+  try {
+    const users = await User.find({}, "firstName lastName _id").limit(5); 
+    res.json({
+      total: users.length,
+      user: users.map(u => ({
+        _id: u._id,                  
+        firstName: u.firstName,
+        lastName: u.lastName
+      }))
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while fetching users" });
+  }
+});
 
 
 router.get('/bulk', authMiddleware, async (req, res) => {
