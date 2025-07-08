@@ -6,14 +6,19 @@ import useTodos from "./hooks/useTodos";
 function App() {
   const [render, setRender] = useState(true);
 
-  const todos = useTodos();
+  const { todos, loading } = useTodos(5);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setRender(false);
-      // setRender(r=>!r) (it does the reverse, like unmount then mount)
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setRender(false);
+  //     // setRender(r=>!r) (it does the reverse, like unmount then mount)
+  //   }, 1000);
+  // }, []);   
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -21,13 +26,15 @@ function App() {
         <h3 className="text-3xl font-bold mb-4">Custom hooks demo</h3>
         {/* <MyComponent /> */}
         {/* <MyNewComponent/> */}
-
         {/* {render ? <MyComponent /> : <div></div>} */}
+
         <div>
           {todos.map((todo) => (
             <Track todo={todo} />
           ))}
         </div>
+
+        
       </div>
     </>
   );
