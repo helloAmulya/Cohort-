@@ -1,9 +1,13 @@
 import { useState, Component, useEffect } from "react";
-
+import axios from "axios";
 import "./App.css";
+import useTodos from "./hooks/useTodos";
 
 function App() {
   const [render, setRender] = useState(true);
+
+  const todos = useTodos();
+
   useEffect(() => {
     setTimeout(() => {
       setRender(false);
@@ -18,7 +22,12 @@ function App() {
         {/* <MyComponent /> */}
         {/* <MyNewComponent/> */}
 
-        {render ? <MyComponent /> : <div></div>}
+        {/* {render ? <MyComponent /> : <div></div>} */}
+        <div>
+          {todos.map((todo) => (
+            <Track todo={todo} />
+          ))}
+        </div>
       </div>
     </>
   );
@@ -50,29 +59,38 @@ function MyComponent() {
   }, []);
   return <div>From inside my component</div>;
 }
-
 // no more used these components
-class MyNewComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
-  }
-  incrementCount = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
-  render() {
-    return (
-      <div className="flex flex-row justify-center items-center gap-4">
-        <p className="text-xl ">{this.state.count}</p>
-        <button
-          onClick={this.incrementCount}
-          className="px-4 py-2 rounded-full bg-green-600"
-        >
-          Increment
-        </button>
-      </div>
-    );
-  }
+// class MyNewComponent extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { count: 0 };
+//   }
+//   incrementCount = () => {
+//     this.setState({ count: this.state.count + 1 });
+//   };
+//   render() {
+//     return (
+//       <div className="flex flex-row justify-center items-center gap-4">
+//         <p className="text-xl ">{this.state.count}</p>
+//         <button
+//           onClick={this.incrementCount}
+//           className="px-4 py-2 rounded-full bg-green-600"
+//         >
+//           Increment
+//         </button>
+//       </div>
+//     );
+//   }
+// }
+
+function Track({ todo }) {
+  return (
+    <div>
+      {todo.title}
+      <br />
+      {todo.description}
+    </div>
+  );
 }
 
 export default App;
