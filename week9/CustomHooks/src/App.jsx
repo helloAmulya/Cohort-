@@ -4,13 +4,19 @@ import "./App.css";
 import useTodos from "./hooks/useTodos";
 import useIsOnline from "./hooks/useIsOnline";
 import useMousePointer from "./hooks/useMousePointer";
+import useTimer from "./hooks/useTimer";
 
 function App() {
   const [render, setRender] = useState(true);
 
   const { todos, loading } = useTodos(5);
   const checkStatus = useIsOnline();
-  const mousePosition = useMousePointer()
+  const mousePosition = useMousePointer();
+
+  const [count, setCount] = useState(0);
+  useTimer(() => {
+    setCount((c) => c + 1);
+  }, 1000);
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -37,8 +43,22 @@ function App() {
           ))}
         </div>
 
-        <div>{checkStatus ? "user is : Online " : " user is : Offline"}</div>
-        <div>Your mouse position is {mousePosition.x}, {mousePosition.y}</div>
+        <div>
+          user is :{" "}
+          {checkStatus ? (
+            <span className="text-green-500">Online</span>
+          ) : (
+            <span className="text-red-400">Online</span>
+          )}
+        </div>
+        <div>
+          Your mouse position is {mousePosition.x}, {mousePosition.y}
+        </div>
+
+        <div>
+          This is incrementing count:{" "}
+          <span className="text-green-500">{count}</span>{" "}
+        </div>
       </div>
     </>
   );
