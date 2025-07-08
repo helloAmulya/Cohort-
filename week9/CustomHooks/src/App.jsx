@@ -2,19 +2,22 @@ import { useState, Component, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import useTodos from "./hooks/useTodos";
+import useIsOnline from "./hooks/useIsOnline";
+import useMousePointer from "./hooks/useMousePointer";
 
 function App() {
   const [render, setRender] = useState(true);
 
   const { todos, loading } = useTodos(5);
+  const checkStatus = useIsOnline();
+  const mousePosition = useMousePointer()
 
   // useEffect(() => {
   //   setTimeout(() => {
   //     setRender(false);
   //     // setRender(r=>!r) (it does the reverse, like unmount then mount)
   //   }, 1000);
-  // }, []);   
-
+  // }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,7 +37,8 @@ function App() {
           ))}
         </div>
 
-        
+        <div>{checkStatus ? "user is : Online " : " user is : Offline"}</div>
+        <div>Your mouse position is {mousePosition.x}, {mousePosition.y}</div>
       </div>
     </>
   );
