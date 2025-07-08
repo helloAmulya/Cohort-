@@ -5,6 +5,7 @@ import useTodos from "./hooks/useTodos";
 import useIsOnline from "./hooks/useIsOnline";
 import useMousePointer from "./hooks/useMousePointer";
 import useTimer from "./hooks/useTimer";
+import useDebounce from "./hooks/useDebounce";
 
 function App() {
   const [render, setRender] = useState(true);
@@ -12,6 +13,10 @@ function App() {
   const { todos, loading } = useTodos(5);
   const checkStatus = useIsOnline();
   const mousePosition = useMousePointer();
+
+  const [inputValue, setInputValue] = useState("");
+
+  const debouncedValue = useDebounce(inputValue, 500);
 
   const [count, setCount] = useState(0);
   useTimer(() => {
@@ -37,12 +42,14 @@ function App() {
         {/* <MyNewComponent/> */}
         {/* {render ? <MyComponent /> : <div></div>} */}
 
+        {/* todos */}
         <div>
           {todos.map((todo) => (
             <Track todo={todo} />
           ))}
         </div>
 
+        {/* online status */}
         <div>
           user is :{" "}
           {checkStatus ? (
@@ -51,14 +58,27 @@ function App() {
             <span className="text-red-400">Online</span>
           )}
         </div>
+
+        {/* mouse location */}
         <div>
           Your mouse position is {mousePosition.x}, {mousePosition.y}
         </div>
 
+        {/* increment count */}
         <div>
           This is incrementing count:{" "}
           <span className="text-green-500">{count}</span>{" "}
         </div>
+
+        {/* debounce input */}
+
+        Debounced value: {debouncedValue}
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Search...."
+        />
       </div>
     </>
   );
