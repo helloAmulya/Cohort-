@@ -1,14 +1,58 @@
 
 
+
+// Interfaces , combine multiple things in one
+
+interface User {
+    firstname: string,
+   lastname: string,
+   email?: string,  // optional field syntax, can be passed or not ( no error due to ?:)
+   age:number,
+}
+
+
+function isLegal(user: User): boolean {
+    return user.age > 21;
+}
+
+
+function greet(user: User) {
+    console.log("Hello, " + user.firstname);
+}
+
+// isLegal({
+//    firstname:"amulya",
+//    lastname:"sharma",
+//    age:20
+// })
+
+
+// console.log("ius, " + isLegal({
+//    firstname:"amulya",
+//    lastname:"sharma",
+//    age:20
+// }) )
+
+const user: User = {
+    firstname: "amulya",
+    lastname: "sharma",
+    age: 20
+};
+
+greet(user);
+console.log("isLegal:", isLegal(user));
+
+
+
 // taking function as a input and returning a function
 
-function mainFunc(fn:()=> number){
-   setTimeout(fn,1000)
-}
- mainFunc(function(){
-    console.log("Hi there")
-    return 300;
-})
+// function mainFunc(fn:()=> number){
+//    setTimeout(fn,1000)
+// }
+//  mainFunc(function(){
+//     console.log("Hi there")
+//     return 300;
+// })
 
 
 
