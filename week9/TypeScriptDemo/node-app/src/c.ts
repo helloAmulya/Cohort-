@@ -1,6 +1,51 @@
 
 
-// enums -> more useful/readable
+// importing and exporting
+// follow ES6 syntax
+
+// export const a = 1;
+const a = 1
+export default a
+export const b = 2;
+
+// then to import -> 
+// import amulya, {b} from "./c.ts" ,, amulya is default and the b constant (like react)
+
+
+
+// generics -> not complex just logical 
+
+type Input = number | string
+
+function firstEl<T>(arr: T[]): T {
+    return arr[0]
+}
+const val = firstEl<string>(["amulya", "ratna"])
+const val1 = firstEl<number>([3232, 354])
+console.log("original arr[0] : ", val)
+console.log(val.toUpperCase())
+console.log(val1)
+
+
+// ^ why we do this :
+// function firstEl(arr: Input[]) {return arr[0]}
+// just add  <T> after the function now it can accept both types 
+
+// const value = firstEl(["amulya", "ratna", 12, 42, 2424 % 1])
+// console.log(value)
+
+// console.log(value.toUpperCase()) this will return error 
+//  we can either make it as an string or number array, both type arguments cannot be passed at once, 
+//  and also toUpperCase() does not exist in ts, so we cannot to this.
+
+// we can do, <T> in the function , then specify the type like <string> or <number> after function
+// const value = firstEl(["amulya", "ratna", 12, 42, 2424 % 1])
+
+
+
+
+
+// enums -> more useful/readable, most used in express status code naming 
 
 enum Direction {
     up,
@@ -34,3 +79,56 @@ anyFunc(Direction.up)
 anyFunc(Direction.down)
 
 
+
+
+
+// my exploration. 
+/*
+
+type Input = number | string
+
+function firstEl<T>(arr: T | Input[]) {
+
+    // function firstEl(arr: Input[]) {
+    // just add a <T> before the function now it can accept both types 
+    return arr[0]
+}
+
+const value1 = firstEl(["amulya", "ratna", 12, 42, 2424 % 1])
+console.log(value1)
+// console.log(value.toUpperCase()) this will return error 
+//  we can either make it as an string or number array, both type arguments cannot be passed at once, 
+//  and also toUpperCase() does not exist in ts, so we cannot to this.
+
+
+// we can do, <T> in the function , then specify the type like <string> or <number>
+const val = firstEl<string>(["amulya"])
+console.log(val.toUpperCase())
+const val1 = firstEl<number>([10*3,"443223",22323])
+// console.log(val1.value)
+console.log(eval(val1))
+
+
+
+
+
+function firstEl<T>(arr: T) {
+    
+// function firstEl(arr: Input[]) {
+// just add a <T> before the function now it can accept both types 
+    return arr[0]
+}
+
+const value = firstEl(["amulya", "ratna", 12, 42, 2424 % 1])
+console.log(value)
+// console.log(value.toUpperCase()) this will return error 
+//  we can either make it as an string or number array, both type arguments cannot be passed at once, 
+//  and also toUpperCase() does not exist in ts, so we cannot to this.
+
+
+// we can do, <T> in the function , then specify the type like <string> or <number>
+const val = firstEl<string[]>(["amulya"])
+console.log(val.toUpperCase())
+
+
+*/
