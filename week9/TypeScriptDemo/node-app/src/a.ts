@@ -19,6 +19,16 @@ function isLegal(user: User): boolean {
 function greet(user: User) {
     console.log("Hello, " + user.firstname);
 }
+const user: User = {
+    firstname: "amulya",
+    lastname: "sharma",
+    age: 20
+};
+
+greet(user);
+console.log("isLegal:", isLegal(user));
+
+
 
 // isLegal({
 //    firstname:"amulya",
@@ -33,14 +43,6 @@ function greet(user: User) {
 //    age:20
 // }) )
 
-const user: User = {
-    firstname: "amulya",
-    lastname: "sharma",
-    age: 20
-};
-
-greet(user);
-console.log("isLegal:", isLegal(user));
 
 
 
