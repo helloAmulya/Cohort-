@@ -1,1 +1,1 @@
-{"root":["./src/a.ts","./src/b.ts"],"errors":true,"version":"5.8.3"}
+{"root":["./src/a.ts","./src/b.ts","./src/c.ts"],"version":"5.8.3"}

@@ -1,9 +1,4 @@
 
- 
-
-
-
-
 // Interfaces , combine multiple things in one
 
 interface User {

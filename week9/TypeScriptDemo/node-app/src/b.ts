@@ -5,9 +5,6 @@
 // 3. array implementation etc, can be done in types only
 
 
-// enums
-
-
 
 // function example
 
