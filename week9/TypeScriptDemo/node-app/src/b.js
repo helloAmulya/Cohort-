@@ -1,9 +1,9 @@
-function greet(id) { }
-function greet(id) { }
+function greet1(id) { }
+function greet2(id) { }
+// greet(1)
+// greet("1")
 // function greet (id:number){}
 // ^ this solely will cause error, so we can use 
-greet(1);
-greet("1");
 // // types
 // type User = {
 //     firstName: string,

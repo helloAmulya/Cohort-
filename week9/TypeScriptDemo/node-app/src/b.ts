@@ -1,12 +1,39 @@
+//  diff b/w types and interfaces, 
+
+// 1. types cannot be used to implement the class only the interfaces can 
+// 2. types can be used for intersection/umions etc. 
 
 
 
+// intersection
+// basically we can use interfaces and types together
 
-function greet1(id: (number | string)){}
-    // or
+type Employee = {
+    name: string,
+    startDate: Date,
+}
+interface Manager {
+    name: string,
+    department: string,
+}
+
+type Techlead = Employee & Manager;
+
+const t: Techlead = {
+    name: "amulya",
+    startDate: new Date(),
+    department: "arteere"
+}
+
+console.log(t)
+
+
+
+function greet1(id: (number | string)) { }
+// or
 type GreetArg = number | string;
 
-function greet2(id: GreetArg){}
+function greet2(id: GreetArg) { }
 
 
 // greet(1)
@@ -25,7 +52,6 @@ function greet2(id: GreetArg){}
 // }
 
 
-// // types cannot be used to implement the class only the interfaces can 
 
 
 
