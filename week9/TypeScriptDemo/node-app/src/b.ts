@@ -2,6 +2,41 @@
 
 // 1. types cannot be used to implement the class only the interfaces can 
 // 2. types can be used for intersection/umions etc. 
+// 3. array implementation etc, can be done in types only
+
+
+// enums
+
+
+
+// function example
+
+function anyDFunc(cb1: (str: string, num: number) => string): string {
+    const x = cb1("12434",2)
+    return "545"
+} 
+const result = anyDFunc((s, n) => {
+    return `Got string: ${s} and number: ${n}`;
+});
+
+console.log(result);
+
+ 
+//  React.FC<TodoProps> ,  react syntax
+
+
+
+// arrays -> syntax : data_type[] , ex - number[]
+type NumberArray = number[]
+function maxVal(arr: NumberArray) {
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i])
+    }
+    //   ........
+}
+// this cannot be done in interface
+
+
 
 
 
