@@ -44,7 +44,6 @@ console.log(val1)
 
 
 
-
 // enums -> more useful/readable, most used in express status code naming 
 
 enum Direction {
