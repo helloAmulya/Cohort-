@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2016",  
-    "module": "commonjs",
+    // "module": "commonjs",
+    "module": "esnext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+
   }
 }

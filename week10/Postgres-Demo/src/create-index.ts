@@ -1,4 +1,4 @@
-import { getClient } from "./utils";
+import { getClient } from "./utils.js";
 
 async function addIndex() {
     const client = await getClient();
