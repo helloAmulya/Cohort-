@@ -28,6 +28,6 @@ model Todos {
   title       String
   description String
   status      Boolean
-  userId     Int
+  userId      Int
   user        User    @relation(fields: [userId], references: [id])
 }
