@@ -12,11 +12,17 @@ type Users = Record<string, { age: number, name: string }>
 const users: Users = {
     "erd1": { age: 21, name: "amulya" },
     "safd": { age: 31, name: "ratna" },
-
 }
 // console.log('users: ',users)
 
-const users1 = new Map()
+
+export type User = {
+    name: string,
+    age: number,
+}
+
+// const users1 = new Map() , or 
+const users1 = new Map<string, User>()
 
 users1.set('adcdds', { age: 21, name: "amulya" })
 users1.set('ddgd', { age: 31, name: "ratna" })
