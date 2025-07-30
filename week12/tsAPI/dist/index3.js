@@ -9,3 +9,7 @@ users1.set('adcdds', { age: 21, name: "amulya" });
 users1.set('ddgd', { age: 31, name: "ratna" });
 const user = users1.get("adcdds");
 console.log(user);
+const handleEvent = (event) => {
+    console.log(`handling event : ${event}`);
+};
+handleEvent('click');
