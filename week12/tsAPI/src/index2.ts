@@ -8,6 +8,8 @@ console.log(a)
 
 // to implement that nothing can be changed, no name,no value inside then we use readonly
 
+// readonly can be used to prevent updating api key
+
 // just add a simple export in front of the type User, due to similar name declaration the typescript causes error
 
 export type User = {
