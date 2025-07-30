@@ -6,12 +6,20 @@ interface User {
     // password?: String; // optional value 
 };
 
-type UpdateProps = Pick<User, 'name' | 'age' | 'password'>
 // Pick is used to pick certain set of properties to play with
+type UpdateProps = Pick<User, 'name' | 'age' | 'password'>
+
+// if we want to make them optional later, use Partial
+type PropsOptional = Partial<UpdateProps>
+
 
 function updateUser(updateprops: UpdateProps) {
-    // updating the user   
+    console.log("Updated user : ", updateprops)
+}
 
+
+
+function OptionaUpdates(updateprops: PropsOptional) {
     console.log("Updated user : ", updateprops)
 }
 
