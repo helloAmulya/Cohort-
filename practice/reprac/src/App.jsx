@@ -5,16 +5,16 @@ import ModalPopBox from "./components/ModalPopBox";
 import Herosection from "./components/Herosection";
 import AceKeyboard from "./components/AceKeyboard";
 
-
 function App() {
-return (
-    <div className="h-screen bg-mainBG"> 
+  return (
+    <div className="bg-mainBG h-screen">
       {/* <ModalPopBox /> */}
 
+      <Herosection />
+      <div className="mt-96 ">
 
-      {/* <Herosection/> */}
-      <AceKeyboard/>
-
+      <AceKeyboard />
+      </div>
     </div>
   );
 }

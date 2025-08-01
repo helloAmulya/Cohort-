@@ -18,15 +18,14 @@ function AceKeyboard() {
   useEffect(() => {
     renderAlpha();
   }, []);
-  
 
   return (
-    <div className="flex h-screen items-center justify-center bg-[#0F1012] p-4">
+    <div className="flex h-56 items-center justify-center bg-[#0F1012] p-4">
       <div className="item-center flex max-w-3xl flex-wrap justify-center gap-2 bg-[#0B0A0E]">
         {alpha.map((ch, i) => {
           return (
             <button
-              className="shadow-b-white z-50 h-16 w-16 rounded-xl border-[0.5px] border-t-2 border-[#545457] border-t-[#525255] text-center text-xl text-white shadow-lg/70 shadow-[#e9e9e9] ease-in hover:scale-95 hover:shadow-none focus:outline-none"
+              className="shadow-b-white h-16 w-16 rounded-xl border-[0.5px] border-t-2 border-[#545457] border-t-[#525255] text-center text-xl text-white shadow-lg/70 shadow-[#e9e9e9] ease-in hover:scale-95 hover:shadow-none focus:outline-none"
               key={i}
             >
               {ch}
