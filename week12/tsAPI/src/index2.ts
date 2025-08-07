@@ -6,7 +6,7 @@ const a = [12, 242, 4]
 a[0] = 343
 console.log(a)
 
-// to implement that nothing can be changed, no name,no value inside then we use readonly
+// to implement that nothing can be changed, no name,no value inside then we use 'readonly'
 
 // readonly can be used to prevent updating api key
 
