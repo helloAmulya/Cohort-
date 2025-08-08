@@ -43,7 +43,7 @@ async function address() {
     FOREIGN KEY (user_id) REFERENCES users(id)
     )
     `;
-    await client.query(createAddressTable)
+    // await client.query(createAddressTable)
     console.log("table created  ")
 }
 

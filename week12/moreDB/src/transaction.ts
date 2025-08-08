@@ -12,7 +12,6 @@ async function trans(email: string, password: string, city: string, street: stri
             `INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id`,
             [email, password]
         );
-
         const userId = userResult.rows[0].id;
 
 
