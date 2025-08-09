@@ -10,10 +10,11 @@ async function insertUser(name: string, password: string, email: string) {
             name,
             password,
             email,
-
         }
     })
     console.log(res)
 }
 
 insertUser('amul', 'passs', 'some1@gmail.com')
+
+
