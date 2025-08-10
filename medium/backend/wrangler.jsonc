@@ -6,8 +6,8 @@
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
+  [vars] 
+  MY_VAR": "my-variable;
   // },
   // "kv_namespaces": [
   //   {
