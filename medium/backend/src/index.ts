@@ -30,7 +30,7 @@ app.post('/api/v1/signup', async (c, next) => {
       password: body.password,
     },
   })
-  const token = sign({ id: user.id }, secret)
+  const token = await sign({ id: user.id }, secret)
   return c.json({
     token: token
   })
@@ -49,14 +49,14 @@ app.post('/api/v1/signin', async (c, next) => {
 
   const user = await prisma.user.findUnique({
     where: {
-      email: body.email
+      email: body.email,
     }
   });
 
   if (!user) {
     c.status(403)
     return c.json({
-      error: "user not foundx",
+      error: "user not found",
     })
   }
 
