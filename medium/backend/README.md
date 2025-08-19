@@ -1,21 +1,20 @@
-```txt
-npm install
-npm run dev
-```
+# this is procedure
 
-```txt
-npm run deploy
-```
+init the project and install required dependencies -> npx create hono@latest, workers and prisma 
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+- we then create the .env file in the root and wrangler.toml or wrangler.jsonc
 
-```txt
-npm run cf-typegen
-```
+- in the env, define the database url and the prisma accelerate url
 
-Pass the `CloudflareBindings` as generics when instantiation `Hono`:
+- in the wrangler.jsonc define the prisma url in the vars
 
-```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
-```
+- after that, in the prisma folder, schema.prisma, define the schema then run the prisma migration and after that prisma generate, this will generate the client to use in our index files to use
+
+- in the src/index.ts first init the hono with generics as it will cause error. later define the routes. whatever generic we define, we do this inside the bindings, and is like to call the env variables here to let hono know
+
+- in the routes, use generated prisma client by const prisma = new PrismaClient({
+  and here you call the prisma url like:
+  datasourceUrl: c.env.PRISMA_DB_URL
+  }).$xtends(withAccelerate()) -> this line is added to use the prisma accelerate (db pooling)
+
+- now do the thing you want , signup/login etc.
