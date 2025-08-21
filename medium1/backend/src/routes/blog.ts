@@ -23,18 +23,15 @@ blogRouter.use('/*', async (c, next) => {
     const user = await verify(authHeader, c.env.JWT_SECRET);
     if (user) {
         c.set("userId", user.id as string)
-        next();
+        await next();
     }
     else {
         return c.text("You are not logged in", 401);
     }
-
-
-
 })
 
 // post the blog
-blogRouter.post('/blog', async (c) => {
+blogRouter.post('/', async (c) => {
     const body = await c.req.json();
 
     const authorId = c.get("userId");
@@ -56,7 +53,7 @@ blogRouter.post('/blog', async (c) => {
 
 })
 
-blogRouter.put('/blog', async (c) => {
+blogRouter.put('/', async (c) => {
     const body = await c.req.json();
     const prisma = new PrismaClient({
         datasourceUrl: c.env.PRISMA_DATABASE_URL,
@@ -75,15 +72,31 @@ blogRouter.put('/blog', async (c) => {
     });
 })
 
-blogRouter.get('/', async (c) => {
+// add pagination in this
+blogRouter.get('/bulk', async (c) => {
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.PRISMA_DATABASE_URL,
+    }).$extends(withAccelerate())
+
+    const blogs = await prisma.blog.findMany();
+    return c.json({
+        blogs
+    });
+
+})
+
+
+
+blogRouter.get('/:id', async (c) => {
     const body = await c.req.json();
+    const urlId = c.req.param("id")
     const prisma = new PrismaClient({
         datasourceUrl: c.env.PRISMA_DATABASE_URL,
     }).$extends(withAccelerate())
 
     try {
         const blog = await prisma.blog.findFirst({
-            where: { id: body.id }
+            where: { id: Number(urlId) } // made the id to come from the url and pass it as the number
         })
 
         return c.json({
@@ -99,15 +112,3 @@ blogRouter.get('/', async (c) => {
 })
 
 
-// add pagination in this
-blogRouter.get('/bulk', async (c) => {
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.PRISMA_DATABASE_URL,
-    }).$extends(withAccelerate())
-
-    const blogs = await prisma.blog.findMany();
-    return c.json({
-        blogs
-    });
-
-})
