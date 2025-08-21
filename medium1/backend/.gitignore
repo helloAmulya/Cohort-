@@ -37,4 +37,4 @@ lerna-debug.log*
 
 # Cloudflare Pages/Workers configuration
 wrangler.toml
-wrangler.jsonc
+wrangler.jsonc.env.local
