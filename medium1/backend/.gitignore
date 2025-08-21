@@ -17,6 +17,7 @@ node_modules/
 
 # env
 .env
+.env.local
 .env.production
 .dev.vars
 
@@ -38,4 +39,3 @@ lerna-debug.log*
 # Cloudflare Pages/Workers configuration
 wrangler.toml
 wrangler.jsonc
-.env.local
