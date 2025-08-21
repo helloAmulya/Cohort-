@@ -20,20 +20,6 @@ const app = new Hono<{
 app.route('/api/v1/user', userRouter);
 app.route('/api/v1/blog', blogRouter);
 
-app.post('/api/v1/blog', async (c) => {
-  return c.text('hello there')
-})
-app.put('/api/v1/blog', async (c) => {
-  return c.text('hello there')
-})
-
-app.get('/api/v1/blog', async (c) => {
-  return c.text('hello there')
-})
-app.get('/api/v1/bulk', async (c) => {
-  return c.text('hello there')
-})
-
 app.get('/', (c) => {
   return c.text('hello there')
 })

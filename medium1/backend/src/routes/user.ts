@@ -26,7 +26,8 @@ const signinSchema = z.object({
 })
 
 
-userRouter.post('/api/v1/user/signup',
+// SignUp
+userRouter.post('/signup',
     zValidator('json', signupSchema
         //  this below can be also used but defined above
         // z.object({
@@ -67,9 +68,8 @@ userRouter.post('/api/v1/user/signup',
         }
 
     })
-
-// logging in
-userRouter.post('/api/v1/user/login',
+// SignIn
+userRouter.post('/login',
     zValidator('json', signinSchema
         // z.object({
         // email: z.string().trim().toLowerCase().email(),
