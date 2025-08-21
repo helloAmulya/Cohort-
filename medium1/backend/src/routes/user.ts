@@ -4,8 +4,9 @@ import { PrismaClient } from "@prisma/client/edge"
 import { withAccelerate } from "@prisma/extension-accelerate"
 import bcrypt from "bcryptjs";
 import { zValidator } from '@hono/zod-validator'
-import { z } from 'zod'
 import { decode, sign, verify } from 'hono/jwt'
+
+import { signinInput, signupInput } from '../zod';
 
 export const userRouter = new Hono<{
     Bindings: {
@@ -14,26 +15,10 @@ export const userRouter = new Hono<{
     }
 }>()
 
-const signupSchema = z.object({
-    username: z.string().trim().toLowerCase().max(10),
-    email: z.string().trim().toLowerCase().email(),
-    password: z.string().max(14),
-})
-
-const signinSchema = z.object({
-    email: z.string().trim().toLowerCase().email(),
-    password: z.string().min(5),
-})
-
 
 // SignUp
 userRouter.post('/signup',
-    zValidator('json', signupSchema
-        //  this below can be also used but defined above
-        // z.object({
-        // username: z.string().trim().toLowerCase().max(10),
-        // email: z.string().trim().toLowerCase().email(),
-        // password: z.string().max(14), })
+    zValidator('json', signupInput
     ),
 
     async (c) => {
@@ -70,24 +55,22 @@ userRouter.post('/signup',
     })
 // SignIn
 userRouter.post('/login',
-    zValidator('json', signinSchema
-        // z.object({
-        // email: z.string().trim().toLowerCase().email(),
-        // password: z.string().max(14),  })
+    zValidator('json', signinInput
     ),
 
     async (c) => {
         const body = c.req.valid('json');
         // the below 2 lines just make no sense 
         // const email = body.email;
-        // const passwordf = body.password;
+        // const password = body.password;
+
         const prisma = new PrismaClient({
             datasourceUrl: c.env.PRISMA_DATABASE_URL,
         }).$extends(withAccelerate())
 
         try {
-            const user = await prisma.user.findFirst({
-                where: { email: body.email, }
+            const user = await prisma.user.findUnique({
+                where: { email: body.email }
             })
             if (!user) {
                 return c.text("Invalid Credentials", 401)
@@ -101,13 +84,13 @@ userRouter.post('/login',
 
             const loginToken = await sign({ id: user.id }, c.env.JWT_SECRET)
             return c.json({
-                message: "User Logged In ",
+                message: "User Logged In",
                 token: loginToken,
-            }, 201)
+            }, 200)
+
         } catch (error: any) {
             console.error("Login error:", error);
-            return c.text("User not found", 404);
-
+            return c.text("Internal server error", 500);
         }
 
     })
