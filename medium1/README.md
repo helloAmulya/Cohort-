@@ -1,3 +1,3 @@
 # I know
 
-> the aiven db is leaked aloog with the env not much issues
+> the aiven db is leaked along with the env not much issues
