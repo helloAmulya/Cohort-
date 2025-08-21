@@ -39,3 +39,4 @@ lerna-debug.log*
 wrangler.toml
 wrangler.jsonc.env.local
 .env.local
+.env.local
