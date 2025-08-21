@@ -37,7 +37,7 @@ userRouter.post('/signup',
     ),
 
     async (c) => {
-        const primsa = new PrismaClient({
+        const prisma = new PrismaClient({
             datasourceUrl: c.env.PRISMA_DATABASE_URL,
         }).$extends(withAccelerate())
 
@@ -46,7 +46,7 @@ userRouter.post('/signup',
         const hashedPass = await bcrypt.hash(body.password, 10)
 
         try {
-            const user = await primsa.user.create({
+            const user = await prisma.user.create({
                 data: {
                     username: body.username,
                     email: body.email,
@@ -81,12 +81,12 @@ userRouter.post('/login',
         // the below 2 lines just make no sense 
         // const email = body.email;
         // const passwordf = body.password;
-        const primsa = new PrismaClient({
+        const prisma = new PrismaClient({
             datasourceUrl: c.env.PRISMA_DATABASE_URL,
         }).$extends(withAccelerate())
 
         try {
-            const user = await primsa.user.findFirst({
+            const user = await prisma.user.findFirst({
                 where: { email: body.email, }
             })
             if (!user) {
