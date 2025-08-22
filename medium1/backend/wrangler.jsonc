@@ -4,10 +4,6 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-08-19",
   "compatibility_flags": ["nodejs_compat"],
-  "vars": {
-    "PRISMA_DATABASE_URL": "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza181a3BTa3c1dGZsSjV1UVFlS0ozdkEiLCJhcGlfa2V5IjoiMDFLMk5FU0dEWVFDRDk4SlFOSjBTOFRCMEoiLCJ0ZW5hbnRfaWQiOiI5NTA2NTM2ZDI1NGNlZWY4NDQwMjM1ODUwZTUzZGM2YWM1NWU0MDY5MGU3NzRkYjE2NTg0OWQ2M2YzNTU2OGNkIiwiaW50ZXJuYWxfc2VjcmV0IjoiNGNlYTkwZTgtNjc2My00OTIxLWI4MGMtNTE1ZWIwZDcwMDI3In0.XmcKG4bTSsrMQOjZZFLrlMhGYIYHW1rM0-4f1C4T_rk",
-    "JWT_SECRET": 1234
-  }
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",
@@ -30,8 +26,8 @@
   // "ai": {
   //   "binding": "AI"
   // },
-  // "observability": {
-  //   "enabled": true,
-  //   "head_sampling_rate": 1
-  // }
+  "observability": {
+    "enabled": true
+    //   "head_sampling_rate": 1
+  }
 }
