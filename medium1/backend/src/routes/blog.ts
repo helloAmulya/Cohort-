@@ -6,7 +6,9 @@ import { zValidator } from '@hono/zod-validator'
 import { z } from 'zod'
 import { decode, sign, verify } from 'hono/jwt'
 
+import { createBlogInput, updateBlogInput } from '@daddyamulya/medium-common';
 
+// blog router with generics
 export const blogRouter = new Hono<{
     Bindings: {
         PRISMA_DATABASE_URL: string,
@@ -34,49 +36,64 @@ blogRouter.use('/*', async (c, next) => {
     }
 })
 
-// post the blog
-blogRouter.post('/', async (c) => {
-    const body = await c.req.json();
-
-    const authorId = c.get("userId");
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.PRISMA_DATABASE_URL,
-    }).$extends(withAccelerate())
-
-    const blog = await prisma.blog.create({
-        data: {
-            title: body.title,
-            content: body.content,
-            authorId: Number(authorId),
+// create blog
+blogRouter.post('/',
+    // zValidator('json', createBlogInput), 
+    //  wrong input check
+    zValidator('json', createBlogInput, (result, c) => {
+        if (!result.success) {
+            return c.json({
+                message: "Invalid blog input"
+            }, 400)
         }
+    }),
+
+    async (c) => {
+        const body = c.req.valid('json');
+        const authorId = c.get("userId");
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.PRISMA_DATABASE_URL,
+        }).$extends(withAccelerate())
+
+        const blog = await prisma.blog.create({
+            data: {
+                title: body.title,
+                content: body.content,
+                authorId: Number(authorId),
+            }
+        })
+        return c.json({ id: blog.id }, 201);
     })
 
-    return c.json({
-        id: blog.id,
-    });
-
-})
-
-blogRouter.put('/', async (c) => {
-    const body = await c.req.json();
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.PRISMA_DATABASE_URL,
-    }).$extends(withAccelerate())
-
-    const blog = await prisma.blog.update({
-        where: { id: body.id },
-        data: {
-            title: body.title,
-            content: body.content,
+// update blog
+blogRouter.put('/',
+    zValidator('json', updateBlogInput, (result, c) => {
+        if (!result.success) {
+            return c.json({
+                message: "Invalid blog input"
+            }, 400)
         }
+    }),
+    async (c) => {
+        const body = c.req.valid('json');
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.PRISMA_DATABASE_URL,
+        }).$extends(withAccelerate())
+
+        const blog = await prisma.blog.update({
+            where: { id: body.id },
+            data: {
+                title: body.title,
+                content: body.content,
+            }
+        })
+
+        return c.json({ id: blog.id }, 200);
+
     })
 
-    return c.json({
-        id: blog.id,
-    });
-})
 
-// add pagination in this
+// all Blogs
 blogRouter.get('/bulk', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.PRISMA_DATABASE_URL,
@@ -89,6 +106,8 @@ blogRouter.get('/bulk', async (c) => {
 
 })
 
+// blog by Id
+// we wrote this after bul, because the url '/:id' was calling the specific blog for "/bulk", error came 
 
 blogRouter.get('/:id', async (c) => {
     const body = await c.req.json();
@@ -102,9 +121,11 @@ blogRouter.get('/:id', async (c) => {
             where: { id: Number(urlId) } // made the id to come from the url and pass it as the number
         })
 
-        return c.json({
-            blog
-        });
+        if (!blog) {
+            return c.json({ message: "Blog not found" }, 404);
+        }
+        return c.json({ blog }, 200);
+
     } catch (error) {
         c.status(403);
         return c.json({

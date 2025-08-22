@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import { zValidator } from '@hono/zod-validator'
 import { decode, sign, verify } from 'hono/jwt'
 
-import { signinInput, signupInput } from '../zod';
+import { signinInput, signupInput } from '@daddyamulya/medium-common';
 
 export const userRouter = new Hono<{
     Bindings: {
