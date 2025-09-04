@@ -55,7 +55,7 @@ userRouter.post('/signup',
     })
 
 // SignIn
-userRouter.post('/login',
+userRouter.post('/signin',
     zValidator('json', signinInput
     ),
 
