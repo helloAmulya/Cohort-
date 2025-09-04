@@ -17,8 +17,10 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
   async function sendRequest() {
     try {
-      const response = axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInput);
-      const jwt = (await response).data;
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInput);
+      // const jwt = (await response).data;
+      console.log("Response data:", response.data);
+      const jwt = response.data.token; 
       localStorage.setItem("token", jwt);
 
       navigate("/blogs")
@@ -76,7 +78,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         </div>
 
 
-        <button onClick={sendRequest} type="button" className='w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 '>{type === 'signup' ? "Sign Up" : "Sign In"}</button>
+        <button onClick={sendRequest} type="button" className='w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 mt-4 '>{type === 'signup' ? "Sign Up" : "Sign In"}</button>
       </div>
     </div>
   )
