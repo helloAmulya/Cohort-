@@ -7,6 +7,7 @@ import { Blogs } from './pages/Blogs.tsx'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { HomePage } from './pages/HomePage.tsx'
+import { Publish } from './pages/Publish.tsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +21,7 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/blog/:id' element={<Blog />} />
           <Route path='/blogs' element={<Blogs />} />
+          <Route path='/publish' element={<Publish />} />
         </Routes>
       </BrowserRouter>
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { BlogCard } from '../components/BlogCard'
 import { AppBar } from '../components/AppBar'
 import { useBlogs } from '../hooks';
+import { Footer } from '../components/Footer';
 
 export const Blogs = () => {
 
@@ -32,8 +33,8 @@ export const Blogs = () => {
 
       <div className='flex justify-center'>
 
-        <div className='flex justify-center max-w-xl flex-col'>
-          {blogs.map(blog => <BlogCard
+        <div className='flex justify-center max-w-xl flex-col' style={{ width: '500px' }}>
+          {blogs.slice(0,8).map(blog => <BlogCard
             authorName={blog.author.username || "daddy"}
             title={blog.title}
             content={blog.content}
@@ -47,6 +48,7 @@ export const Blogs = () => {
 
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
