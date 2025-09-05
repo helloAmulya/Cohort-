@@ -122,30 +122,72 @@ blogRouter.get('/bulk', async (c) => {
 // blog by Id
 // we wrote this after bul, because the url '/:id' was calling the specific blog for "/bulk", error came 
 
+// blogRouter.get('/:id', async (c) => {
+//     const body = await c.req.json();
+//     const urlId = c.req.param("id")
+//     const prisma = new PrismaClient({
+//         datasourceUrl: c.env.PRISMA_DATABASE_URL,
+//     }).$extends(withAccelerate())
+
+//     try {
+//         const blog = await prisma.blog.findFirst({
+//             where: { id: Number(urlId) }, // made the id to come from the url and pass it as the number
+//         select:{
+
+//             id:true,
+//             title:true,
+//             content:true,
+//             author:{
+//                 select:{
+//                     username:true,
+//                 }
+//             }
+//         }
+//         })
+
+//         if (!blog) {
+//             return c.json({ message: "Blog not found" }, 404);
+//         }
+//         return c.json({ blog }, 200);
+
+//     } catch (error) {
+//         c.status(403);
+//         return c.json({
+//             message: "Error fetching the blog",
+//         })
+
+//     }
+// })
+
+
+// changed the backend for getting the blog
 blogRouter.get('/:id', async (c) => {
-    const body = await c.req.json();
-    const urlId = c.req.param("id")
+    const urlId = c.req.param("id"); 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.PRISMA_DATABASE_URL,
-    }).$extends(withAccelerate())
+    }).$extends(withAccelerate());
 
     try {
         const blog = await prisma.blog.findFirst({
-            where: { id: Number(urlId) } // made the id to come from the url and pass it as the number
-        })
+            where: { id: Number(urlId) },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        username: true,
+                    },
+                },
+            },
+        });
 
         if (!blog) {
             return c.json({ message: "Blog not found" }, 404);
         }
         return c.json({ blog }, 200);
-
     } catch (error) {
         c.status(403);
-        return c.json({
-            message: "Error fetching the blog",
-        })
-
+        return c.json({ message: "Error fetching the blog" });
     }
-})
-
-
+});
