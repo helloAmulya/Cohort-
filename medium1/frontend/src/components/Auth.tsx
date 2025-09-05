@@ -1,6 +1,6 @@
 
 import type { SignupSchema } from '@daddyamulya/medium-common'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BACKEND_URL } from '../config'

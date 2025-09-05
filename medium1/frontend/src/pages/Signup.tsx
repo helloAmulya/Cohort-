@@ -1,6 +1,6 @@
 // pages/Signup.tsx
 
-import React from "react";
+
 import { Quote } from "../components/Quote";
 import { Auth } from "../components/Auth";
 

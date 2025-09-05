@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { AppBar } from '../components/AppBar'
 import { BlogCard } from '../components/BlogCard'
 import { useBlogs } from '../hooks'
@@ -13,16 +13,16 @@ export const HomePage = () => {
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem('token'));
     };
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener('storage', handleStorageChange); 
+    return () => window.removeEventListener('storage', handleStorageChange); 
   }, []);
   const dummmyBlogs = {
     content: "kihougw ",
-    title: "foihovnx",
-    username: "mufa",
-    key: 23423,
-    id: 23423,
-    publishedDate: "anytime"
+    title: "foihovnx", 
+    username: "mufa", 
+    key: 23423, 
+    id: "23423", 
+    publishedDate: "anytime" 
 
   }
 
@@ -52,11 +52,11 @@ export const HomePage = () => {
               <div className="space-y-6">
                 <BlogCard
                   key={dummmyBlogs.id}
-                  id={dummmyBlogs.id}
+                  id={dummmyBlogs.id.toString()}
                   authorName={dummmyBlogs.username || "Anonymous"}
                   title={dummmyBlogs.title}
                   content={dummmyBlogs.content}
-                  publishedDate={new Date(dummmyBlogs.publishedAt).toLocaleDateString("en-US", {
+                  publishedDate={new Date(dummmyBlogs.publishedDate).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                     year: "numeric",
@@ -80,11 +80,11 @@ export const HomePage = () => {
               {blogs.slice(0, 5).map((blog) => (
                 <BlogCard
                   key={blog.id}
-                  id={blog.id}
+                  id={blog.id.toString()}
                   authorName={blog.author.username || "Anonymous"}
                   title={blog.title}
                   content={blog.content}
-                  publishedDate={new Date(blog.publishedAt).toLocaleDateString("en-US", {
+                  publishedDate={new Date(blog.publishedDate).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                     year: "numeric",

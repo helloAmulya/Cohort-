@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Signup } from './pages/Signup.tsx'
 import { Signin } from './pages/Signin.tsx'
 import { Blog } from './pages/Blog.tsx'
@@ -10,7 +9,6 @@ import { HomePage } from './pages/HomePage.tsx'
 import { Publish } from './pages/Publish.tsx'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>

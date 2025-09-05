@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { BlogCard } from '../components/BlogCard'
 import { AppBar } from '../components/AppBar'
 import { useBlogs } from '../hooks';
@@ -38,7 +38,7 @@ export const Blogs = () => {
             authorName={blog.author.username || "daddy"}
             title={blog.title}
             content={blog.content}
-            id={blog.id}
+            id={blog.id.toString() || ""}
             publishedDate={`${new Date().toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",

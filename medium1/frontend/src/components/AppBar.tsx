@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar } from './BlogCard';
 import { Search } from 'lucide-react';
-import { Blogs } from '../pages/Blogs';
+
 
 export const AppBar = () => {
     const navigate = useNavigate();
