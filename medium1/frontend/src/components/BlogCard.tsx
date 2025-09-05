@@ -6,7 +6,7 @@ interface BlogCardProps {
     title: string;
     content: string;
     publishedDate: string;
-    id: string;
+    id: number;
 }
 
 export const BlogCard = ({
@@ -39,9 +39,9 @@ export const BlogCard = ({
                 {content}
             </p>
 
-            {/* the above is to calculate the time to read the blog based on the length */}
             <div className="text-xs text-gray-500">
                 {`${Math.ceil(content.length / 100)} min read`}
+                {/* the above is to calculate the time to read the blog based on the length */}
             </div>
         </div>
     </Link>

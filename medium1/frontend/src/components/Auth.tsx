@@ -1,6 +1,5 @@
-
 import type { SignupSchema } from '@daddyamulya/medium-common'
-import  { useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BACKEND_URL } from '../config'
@@ -12,15 +11,16 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     username: "",
     email: "",
     password: "",
+
   })
   const navigate = useNavigate();
 
   async function sendRequest() {
     try {
       const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInput);
-      // const jwt = (await response).data;
+      // const jwt = (await response).data; // we need the token not all data
       console.log("Response data:", response.data);
-      const jwt = response.data.token; 
+      const jwt = response.data.token;
       localStorage.setItem("token", jwt);
 
       navigate("/blogs")
@@ -34,7 +34,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     <div className="h-screen flex items-center justify-center bg-white">
       <div className="flex flex-col items-center w-full max-w-md px-6">
 
-        {/* heading */}
+
         <div className="flex flex-col items-center text-center mb-6">
           <h3 className="text-4xl font-bold">
             {type === "signup" ? "Create an Account" : "Welcome Back"}
@@ -47,7 +47,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
           </p>
         </div>
 
-        {/* inputs */}
+
         <div className="flex flex-col gap-4 w-full">
           {type === "signup" && (
             <LabeledInput
@@ -99,8 +99,7 @@ function LabeledInput({ label, placeholder, onChange, type }: LabelInputProps) {
         onChange={onChange}
         type={type || "text"}
         placeholder={placeholder}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         required
       />
     </div>
