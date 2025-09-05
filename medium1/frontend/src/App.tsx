@@ -6,6 +6,7 @@ import { Blogs } from './pages/Blogs.tsx'
 
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router'
+import { HomePage } from './pages/HomePage.tsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,6 +15,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<HomePage />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/blog/:id' element={<Blog />} />
