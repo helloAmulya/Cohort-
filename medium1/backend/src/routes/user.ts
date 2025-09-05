@@ -26,8 +26,8 @@ userRouter.post('/signup',
             datasourceUrl: c.env.PRISMA_DATABASE_URL,
         }).$extends(withAccelerate())
 
-        // const body = await c.req.json();
-        const body = c.req.valid('json');
+        // const body = await c.req.json(); 
+        const body = c.req.valid('json'); // checks to get the valid data
         const hashedPass = await bcrypt.hash(body.password, 10)
 
         try {
@@ -61,7 +61,7 @@ userRouter.post('/signin',
 
     async (c) => {
         const body = c.req.valid('json');
-        // the below 2 lines just make no sense 
+        // the below 2 lines just make no sense as we take the whole body
         // const email = body.email;
         // const password = body.password;
 

@@ -21,7 +21,7 @@ const app = new Hono<{
 app.use(
   '/*',
   cors({
-    origin: 'http://localhost:5173', // your React frontend URL
+    origin: 'http://madcom.vercel.app/', // your React frontend URL
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
   })

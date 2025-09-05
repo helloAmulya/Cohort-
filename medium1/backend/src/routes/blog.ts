@@ -102,7 +102,6 @@ blogRouter.get('/bulk', async (c) => {
     const blogs = await prisma.blog.findMany({
 
         select: {
-
             content: true,
             title: true,
             id: true,
@@ -120,7 +119,7 @@ blogRouter.get('/bulk', async (c) => {
 })
 
 // blog by Id
-// we wrote this after bul, because the url '/:id' was calling the specific blog for "/bulk", error came 
+// we wrote this after bulk, because the url '/:id' was calling the specific blog for "/bulk", error came 
 
 // blogRouter.get('/:id', async (c) => {
 //     const body = await c.req.json();
