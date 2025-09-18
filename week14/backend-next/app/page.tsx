@@ -25,11 +25,23 @@ export default async function Home() {
   const userDetails = await getUserDataAPI();
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">
+          This is Home Page
+        </h1>
 
-      {userDetails?.name} {" "}
-      {userDetails?.email}
-
+        {userDetails ? (
+          <div className="space-y-2">
+            <p className="text-lg font-medium text-gray-700">
+              {userDetails.name}
+            </p>
+            <p className="text-gray-500">{userDetails.email}</p>
+          </div>
+        ) : (
+          <p className="text-gray-400 italic">Loading user details...</p>
+        )}
+      </div>
     </div>
   );
 }
