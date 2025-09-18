@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "../../generated/prisma"
 
-const client = new PrismaClient();
+const prisma = new PrismaClient();
 
 // epxort all users
 export async function GET() {
     try {
-        const users = await client.user.findMany();
+        const users = await prisma.user.findMany();
         return NextResponse.json(users);
     } catch (error) {
         console.error("GET error:", error);
@@ -44,19 +44,25 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const user = await client.user.create({
+        const existingUser = await prisma.user.findFirst({
+            where: {
+                username: body.username
+            }
+        })
+        if (existingUser) { return NextResponse.json({ error: "user already exists" }) }
+        const user = await prisma.user.create({
             data: {
                 username: body.username,
                 password: body.password,
             },
         });
-
         return NextResponse.json({
             message: "User created successfully",
             user,
+        }, {
+            status: 409
         });
     } catch (error) {
-        console.error("POST error:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 411 });
     }
 }
