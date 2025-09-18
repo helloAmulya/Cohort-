@@ -9,6 +9,8 @@ export default function Signup() {
   const [password, setPassword] = useState("")
   const router = useRouter()
 
+
+  //  due to the below function this will be done at client side and not on the server side, therefore we use the "use client"
   async function handleSignUp() {
     try {
       const res = await axios.post("/api/user", { username, password });
