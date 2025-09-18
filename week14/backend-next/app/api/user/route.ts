@@ -1,4 +1,7 @@
+import { NextRequest, NextResponse } from "next/server";
 
+// import { PrismaClient } from "@prisma/client"
+// const client = new PrismaClient();
 
 
 export function GET() {
@@ -9,11 +12,15 @@ export function GET() {
     });
 }
 
-// import { NextResponse } from "next/server";
 
-// export function GET() {
-//   return NextResponse.json({
-//     email: "trst@gm.com",
-//     name: "trr",
-//   });
-// }
+export async function POST(req: NextRequest) {
+    const body = await req.json();
+    // await client.user.create({
+    //     username: body.username,
+    //     password: body.passwords
+    // })
+    return NextResponse.json({
+        message: "You are logged in"
+    })
+
+}
