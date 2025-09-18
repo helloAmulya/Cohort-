@@ -1,7 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "../../generated/prisma"
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
+
+//  prisa singleton for next.js specific - instances issue (only in development)
+// do this in db.ts recommended
+const prismaClientSingleton = () => {
+    return new PrismaClient();
+}
+declare global {
+    var prisma: undefined | ReturnType<typeof prismaClientSingleton>
+}
+const prisma = globalThis.prisma ?? prismaClientSingleton()
+export default prisma
+if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma
 
 // epxort all users
 export async function GET() {

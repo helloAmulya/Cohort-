@@ -16,6 +16,8 @@ async function getUserDataAPI() {
   }
 }
 
+// in the above function we can directly define the prisma get logic from the route.ts, untile we do "use client" this code will not reach frontend and not be exposed
+
 export default async function Home() {
 
   // the details will be fetched from backend to next server, then will be returned as the html
