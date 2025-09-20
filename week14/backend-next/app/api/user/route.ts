@@ -1,21 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../generated/prisma"
 
+import prisma from "@/db";
+// import { PrismaClient } from "../../generated/prisma"
 // const prisma = new PrismaClient();
 
 //  prisa singleton for next.js specific - instances issue (only in development)
 // do this in db.ts recommended
-const prismaClientSingleton = () => {
-    return new PrismaClient();
-}
-declare global {
-    var prisma: undefined | ReturnType<typeof prismaClientSingleton>
-}
-const prisma = globalThis.prisma ?? prismaClientSingleton()
-export default prisma
+// const prismaClientSingleton = () => {
+//     return new PrismaClient();
+// }
+// declare global {
+//     var prisma: undefined | ReturnType<typeof prismaClientSingleton>
+// }
+// const prisma = globalThis.prisma ?? prismaClientSingleton()
+// export default prisma
 
 
-if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma
+// if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma
 
 
 
@@ -79,6 +80,7 @@ export async function POST(req: NextRequest) {
             status: 409
         });
     } catch (error) {
+        console.log((error))
         return NextResponse.json({ error: "Internal Server Error" }, { status: 411 });
     }
 }

@@ -1,12 +1,12 @@
 "use server"
 //  this is to make server actions
 
-import client from "@/db"
+import prisma from "@/db"
 
 export async function signup(username: string, password: string) {
 
     try {
-        await client.user.create({
+        await prisma.user.create({
             data: {
                 username: username,
                 password: password

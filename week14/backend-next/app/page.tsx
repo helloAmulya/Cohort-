@@ -1,4 +1,7 @@
-import axios from "axios";
+import { User } from "@prisma/client";
+import prisma from "@/db";
+
+// import axios from "axios";
 
 // async function getUserData() {
 //   // await new Promise((r)=> setTimeout(r,5000));
@@ -20,7 +23,7 @@ import axios from "axios";
 
 async function getUserDataAPI() {
   try {
-    const res = await fetch("/api/user", { cache: "no-store" }); 
+    const res = await fetch("/api/user", { cache: "no-store" });
     return res.json();
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -38,7 +41,9 @@ export default async function Home() {
   // const userDetails = await getUserData();
 
   // from api folder
-  const userDetails = await getUserDataAPI();
+  // const userDetails = await getUserDataAPI();
+  // direct Prisma query in the server component instead of calling your API route.
+  const userDetails: User[] = await prisma.user.findMany();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
@@ -62,7 +67,7 @@ export default async function Home() {
         {/* render all user  */}
         {userDetails && userDetails.length > 0 ? (
           <div className="space-y-4">
-            {userDetails.map((user: any) => (
+            {userDetails.map((user: User) => (
               <div
                 key={user.id}
                 className="border-b border-gray-200 pb-2 text-left"

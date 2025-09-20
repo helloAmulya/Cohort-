@@ -1,25 +1,25 @@
 "use client"
 
-import axios from 'axios'
+// import axios from 'axios'
 import { signup } from "@/app/actions/user"
 import React, { ChangeEventHandler, useState } from 'react'
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const router = useRouter()
+  // const router = useRouter()
 
 
   //  due to the below function this will be done at client side and not on the server side, therefore we use the "use client"
-  async function handleSignUp() {
-    try {
-      const res = await axios.post("/api/user", { username, password });
-      router.push("/"); // this REDIRECTS to '/' after post request completes
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // async function handleSignUp() {
+  //   try {
+  //     const res = await axios.post("/api/user", { username, password });
+  //     router.push("/"); // this REDIRECTS to '/' after post request completes
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
   return (
     <div className='h-screen flex-col items-center justify-center'>
       <div className="flex justify-center mt-10">
