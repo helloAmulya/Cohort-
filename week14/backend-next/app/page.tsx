@@ -6,15 +6,29 @@ import axios from "axios";
 //   return res.data;
 // }
 
+// async function getUserDataAPI() {
+//   // fetching this data from the local api backend folder
+//   try {
+//     const res = await axios.get('http://localhost:3000/api/user')
+//     return res.data;
+//     // const res = await fetch("/api/user"); // this works in production
+//     // return res.json();
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
 async function getUserDataAPI() {
-  // fetching this data from the local api backend folder
   try {
-    const res = await axios.get('http://localhost:3000/api/user')
-    return res.data;
+    const res = await fetch("/api/user", { cache: "no-store" }); 
+    return res.json();
   } catch (error) {
-    console.log(error)
+    console.error("Error fetching users:", error);
+    return [];
   }
 }
+
+
 
 // in the above function we can directly define the prisma get logic from the route.ts, untile we do "use client" this code will not reach frontend and not be exposed
 

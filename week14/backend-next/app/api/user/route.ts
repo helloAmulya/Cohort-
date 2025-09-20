@@ -13,7 +13,11 @@ declare global {
 }
 const prisma = globalThis.prisma ?? prismaClientSingleton()
 export default prisma
+
+
 if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma
+
+
 
 // epxort all users
 export async function GET() {
@@ -78,3 +82,9 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Internal Server Error" }, { status: 411 });
     }
 }
+
+
+// export async function POST(req: NextRequest) {
+//     solve()
+// }
+
