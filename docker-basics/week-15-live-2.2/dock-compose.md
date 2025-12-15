@@ -16,12 +16,6 @@ docker-compose.yml
 docker compose up
 ```
 
-- to execute
-
-```
-docker compose up
-```
-
 - to stop and remove containers
 
 ```
